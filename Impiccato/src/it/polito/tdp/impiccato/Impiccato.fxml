@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
-	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.impiccato.ImpiccatoController">
-	<!-- TODO Add Nodes -->
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="it.polito.tdp.impiccato.ImpiccatoController">
+   <top>
+      <Label text="Gioco dell'Impiccato" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="boxSegreto" alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Parola da indovinare" />
+                  <TextField fx:id="txtSegreto" promptText="Inserisci..." />
+                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#doStart" text="Start" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Lettera" />
+                  <ComboBox fx:id="comboLettera" disable="true" onAction="#doTry" promptText="Scegli..." />
+                  <Button fx:id="btnTry" disable="true" mnemonicParsing="false" onAction="#doTry" text="Try" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Errori" />
+                  <ProgressBar fx:id="pbErrori" prefWidth="150.0" progress="0.0" />
+                  <TextField fx:id="txtErrori" editable="false" prefColumnCount="3" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0">
+               <children>
+                  <Label text="Parola" />
+                  <TextField fx:id="txtParola" editable="false" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="115.0" spacing="5.0">
+               <children>
+                  <Label text="Soluzione" />
+                  <TextField fx:id="txtSoluzione" editable="false" />
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
 </BorderPane>

@@ -39,6 +39,7 @@ public class ImpiccatoModel {
 	 */
 	public void startGame(String segreto) {
 		this.segreto = segreto.toUpperCase();
+		
 		errori = 0;
 		provate.clear();
 		

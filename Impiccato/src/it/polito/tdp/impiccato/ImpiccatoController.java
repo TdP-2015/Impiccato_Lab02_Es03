@@ -72,14 +72,33 @@ public class ImpiccatoController {
 
 		txtErrori.setText(String.format("%d", model.getErrori()));
 		txtParola.setText(model.getMaschera());
-		pbErrori.setProgress( (double)model.getErrori()/model.getMAX_ERRORI()) ;
+		pbErrori.setProgress((double) model.getErrori() / model.getMAX_ERRORI());
 
 	}
 
 	@FXML
 	void doStart(ActionEvent event) {
 
-		model.startGame(txtSegreto.getText());
+		String segreto = txtSegreto.getText();
+
+		// remove spaces and converto to uppercase
+		segreto = segreto.trim().toUpperCase();
+
+		// must not be empty
+		if (segreto.length() == 0) {
+			txtSoluzione.setText("ERRORE parola non valida");
+			return;
+		}
+
+		// must only contain letters
+		for (int i = 0; i < segreto.length(); i++) {
+			if (!Character.isUpperCase(segreto.charAt(i))) {
+				txtSoluzione.setText("ERRORE parola non valida");
+				return;
+			}
+		}
+
+		model.startGame(segreto);
 
 		inMatch = true;
 		updateView();
@@ -89,11 +108,11 @@ public class ImpiccatoController {
 	void doTry(ActionEvent event) {
 
 		String t = comboLettera.getValue();
-		if(t==null) {
+		if (t == null) {
 			// no selected letter
-			return ;
+			return;
 		}
-		
+
 		model.tryLetter(t);
 
 		if (model.isWinner()) {
@@ -125,7 +144,7 @@ public class ImpiccatoController {
 		for (char ch = 'A'; ch <= 'Z'; ch++) {
 			comboLettera.getItems().add(String.valueOf(ch));
 		}
-		
+
 	}
 
 	public void setModel(ImpiccatoModel model) {

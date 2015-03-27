@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="it.polito.tdp.impiccato.ImpiccatoController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.impiccato.ImpiccatoController">
    <top>
       <Label text="Gioco dell'Impiccato" BorderPane.alignment="CENTER">
          <font>
@@ -21,16 +20,13 @@
          <children>
             <HBox fx:id="boxSegreto" alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label text="Parola da indovinare" />
-                  <TextField fx:id="txtSegreto" promptText="Inserisci..." />
-                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#doStart" text="Start" />
+                  <Button fx:id="btnStart" mnemonicParsing="false" onAction="#doStart" text="Inizia gioco" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <Label text="Lettera" />
                   <ComboBox fx:id="comboLettera" disable="true" onAction="#doTry" promptText="Scegli..." />
-                  <Button fx:id="btnTry" disable="true" mnemonicParsing="false" onAction="#doTry" text="Try" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">

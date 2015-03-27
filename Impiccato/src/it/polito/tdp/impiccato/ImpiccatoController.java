@@ -22,9 +22,6 @@ public class ImpiccatoController {
 	private URL location;
 
 	@FXML
-	private TextField txtSegreto;
-
-	@FXML
 	private TextField txtParola;
 
 	@FXML
@@ -43,9 +40,6 @@ public class ImpiccatoController {
 	private ComboBox<String> comboLettera;
 
 	@FXML
-	private Button btnTry;
-
-	@FXML
 	private TextField txtSoluzione;
 
 	// Reference to ImpiccatoModel
@@ -53,6 +47,9 @@ public class ImpiccatoController {
 
 	// In-match flag (is the match already started?)
 	boolean inMatch = false;
+	
+	// Remembers the secret word
+	String segreto = null ;
 
 	private void updateView() {
 		if (inMatch) {
@@ -60,14 +57,12 @@ public class ImpiccatoController {
 			boxSegreto.setVisible(false);
 			btnStart.setDisable(true);
 			comboLettera.setDisable(false);
-			btnTry.setDisable(false);
 
 		} else {
 			// Not in match
 			boxSegreto.setVisible(true);
 			btnStart.setDisable(false);
 			comboLettera.setDisable(true);
-			btnTry.setDisable(true);
 		}
 
 		txtErrori.setText(String.format("%d", model.getErrori()));
@@ -79,7 +74,7 @@ public class ImpiccatoController {
 	@FXML
 	void doStart(ActionEvent event) {
 
-		String segreto = txtSegreto.getText();
+		segreto = model.nuovoSegreto() ;
 
 		// remove spaces and converto to uppercase
 		segreto = segreto.trim().toUpperCase();
@@ -101,6 +96,8 @@ public class ImpiccatoController {
 		model.startGame(segreto);
 
 		inMatch = true;
+		
+		txtSoluzione.clear() ;
 		updateView();
 	}
 
@@ -115,29 +112,22 @@ public class ImpiccatoController {
 
 		model.tryLetter(t);
 
-		if (model.isWinner()) {
-			txtSoluzione.setText(txtSegreto.getText());
-			txtSegreto.clear();
+		if (model.isWinner() || model.isLoser()) {
+			txtSoluzione.setText(this.segreto);
 			inMatch = false;
-		} else if (model.isLoser()) {
-			txtSoluzione.setText(txtSegreto.getText());
-			txtSegreto.clear();
-			inMatch = false;
-		}
+		} 
 
 		updateView();
 	}
 
 	@FXML
 	void initialize() {
-		assert txtSegreto != null : "fx:id=\"txtSegreto\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert txtParola != null : "fx:id=\"txtParola\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert pbErrori != null : "fx:id=\"pbErrori\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert btnStart != null : "fx:id=\"btnStart\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert boxSegreto != null : "fx:id=\"boxSegreto\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert txtErrori != null : "fx:id=\"txtErrori\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert comboLettera != null : "fx:id=\"comboLettera\" was not injected: check your FXML file 'Impiccato.fxml'.";
-		assert btnTry != null : "fx:id=\"btnTry\" was not injected: check your FXML file 'Impiccato.fxml'.";
 		assert txtSoluzione != null : "fx:id=\"txtSoluzione\" was not injected: check your FXML file 'Impiccato.fxml'.";
 
 		// Popola la combo box

@@ -1,10 +1,5 @@
 package it.polito.tdp.impiccato.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import it.polito.tdp.impiccato.db.ParolaDAO;
 
 import java.util.HashSet;

@@ -1,5 +1,7 @@
 package it.polito.tdp.impiccato.model;
 
+import it.polito.tdp.impiccato.db.ParolaDAO;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -119,49 +121,16 @@ public class ImpiccatoModel {
 	 * @return una parola casuale
 	 */
 	public String nuovoSegreto() {
-		String url = "jdbc:mysql://localhost/dizionario?user=root";
-
-		try {
-			Connection conn = DriverManager.getConnection(url);
-
-			String query1 = "select count(id) as numero from parola";
-
-			Statement st1 = conn.createStatement();
-			ResultSet res1 = st1.executeQuery(query1);
-
-			res1.first();
-			int numeroParole = res1.getInt("numero");
-
-			res1.close();
-
+		
+			ParolaDAO dao = new ParolaDAO() ;
+			
+			int numeroParole = dao.contaParole() ;
+			
 			int indiceParola = (int) (Math.random() * numeroParole);
-
-			String query2 = "select nome from parola limit " + indiceParola
-					+ ", 1";
-
-			/*
-			String query2 = String.format(
-					"select nome from parola limit %d, 1", 
-					indiceParola) ; */
 			
-			Statement st2 = conn.createStatement() ;
-			ResultSet res2 = st2.executeQuery(query2) ;
-			
-			res2.first() ;
-			String segreto = res2.getString("nome") ;
-			
-			res2.close();
-			
-			conn.close();
+			String segreto = dao.findNomeParolaByPos(indiceParola) ;
 			
 			return segreto.toUpperCase() ;
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null ;
-
 	}
 }
